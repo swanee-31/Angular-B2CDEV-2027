@@ -1,0 +1,20 @@
+<p>binding-tests works!</p>
+<h1>Bonjour, {{ pseudo }} !</h1>
+
+<!-- 2. Property Binding [ ] : Change la source de l'image -->
+<!-- Si 'avatar' change dans le TS, l'image change ici -->
+<img [src]="avatar" width="100">
+
+<!-- 3. Event Binding ( ) : Déclenche la méthode au clic -->
+<!-- Si je clique, la fonction rechargerEnergie() se lance -->
+<button (click)="rechargerEnergie()">Se reposer</button>
+
+<!-- 2b. Autre exemple de Property Binding -->
+<!-- Le bouton est désactivé si 'estFatigue' est faux (donc s'il est en forme) -->
+<button [disabled]="!estFatigue">Dormir</button>
+
+<!-- 4. Two-Way Binding [()] -->
+<!-- Nécessite d'importer FormsModule -->
+<p>Changez votre nom ici :</p>
+<input [(ngModel)]="pseudo" type="text">
+<!-- Si vous tapez ici, le <h1> du haut changera en temps réel ! -->

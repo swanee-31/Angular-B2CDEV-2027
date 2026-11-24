@@ -1,0 +1,85 @@
+<p>structuration-tests works!</p>
+<!-- Tant que 'estEnChargement' est vrai, ce paragraphe existe -->
+<p *ngIf="estEnChargement">⏳ Veuillez patienter, chargement en cours...</p>
+
+<!-- Le '!' inverse la condition. Si n'est PAS en chargement, on affiche le contenu -->
+<div *ngIf="!estEnChargement">
+  <h1>Bienvenue !</h1>
+  <p>Voici le secret : {{ messageSecret }}</p>
+</div>
+
+<!-- Bouton pour simuler la fin du chargement -->
+ <div *ngIf="estEnChargement">
+<button (click)="terminerChargement()">Simuler la fin du chargement</button>    
+</div>
+
+<!-- Bouton pour réinitialiser le chargement -->
+ <div *ngIf="!estEnChargement">
+<button (click)="resetCharger()">Réinitialiser le chargement</button>
+</div>
+
+<div *ngIf="!estEnChargement">
+<h3>Liste simple (Strings)</h3>
+<ul>
+  <!-- Angular va créer autant de <li> qu'il y a d'étudiants -->
+  <!-- 'etudiant' est une variable temporaire qui change à chaque tour de boucle -->
+  <li *ngFor="let etudiant of etudiants">
+    Bonjour {{ etudiant }} !
+  </li>
+</ul>
+<hr>
+
+<h3>Liste complexe (Objets) + Condition</h3>
+<div class="carte-produit">
+  <!-- On boucle sur les produits -->
+  <!-- On peut aussi récupérer l'index (0, 1, 2...) -->
+  <div *ngFor="let produit of produits; let i = index">
+    
+    <p><strong>Produit n°{{ i + 1 }} :</strong> {{ produit.nom }} - Prix : {{ produit.prix }} €</p>
+    
+    <!-- On combine *ngIf à l'intérieur d'un *ngFor ! -->
+    <span *ngIf="produit.enStock" style="color: green">✅ En stock</span>
+    <span *ngIf="!produit.enStock" style="color: red">❌ Rupture</span>
+
+  </div>
+</div>
+
+<hr>
+<h3>structuration avec syntaxe non dépréciée</h3>
+@if (!estEnChargement) {
+  <div>Bonjour Utilisateur</div>
+} @else {
+  <div>Veuillez vous connecter</div>
+}
+
+@for (etudiant of etudiants; track etudiant) {
+  <div>Étudiant : {{ etudiant }}</div> }
+
+@for (produit of produits; track produit.nom) {
+  @if (produit.enStock) {
+    <div>Produit : {{ produit.nom }} - Prix : {{ produit.prix }} €</div> }  }
+</div>
+<hr>
+<!-- exemple de ngSwitch-->
+<div *ngIf="!estEnChargement">
+<!-- Attention aux crochets [] sur le parent -->
+<div [ngSwitch]="role">
+
+  <!-- Cas 1 : Admin -->
+  <div *ngSwitchCase="'admin'">
+    <h1>Tableau de bord Administrateur</h1>
+    <button>gérer les utilisateurs</button>
+  </div>
+
+  <!-- Cas 2 : User -->
+  <div *ngSwitchCase="'user'">
+    <h1>Mon Profil</h1>
+    <button>Modifier mes infos</button>
+  </div>
+
+  <!-- Cas par défaut -->
+  <div *ngSwitchDefault>
+    <p>Bienvenue visiteur, connectez-vous.</p>
+  </div>
+ </div>
+</div>
