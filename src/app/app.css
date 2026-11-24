@@ -1,0 +1,66 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 max(24px, calc((100vw - 1180px) / 2));
+  background: #fff;
+  border-bottom: 1px solid #e8e4de;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #242a24;
+  font-size: 1.25rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 11px;
+  color: #fff;
+  background: #426b4c;
+  font-size: 1.05rem;
+}
+
+.main-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.main-nav a {
+  color: #555d54;
+}
+
+.main-nav a.active-link {
+  color: #315a3b;
+  background: #edf4ee;
+}
+
+.page-content {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 40px 0 64px;
+}
+
+@media (max-width: 600px) {
+  .app-toolbar {
+    padding: 0 16px;
+  }
+
+  .page-content {
+    width: calc(100% - 32px);
+    padding-top: 28px;
+  }
+}

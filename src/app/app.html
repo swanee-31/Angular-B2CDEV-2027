@@ -1,17 +1,17 @@
-<div>
- <h1>Bienvenue sur l'Accueil</h1>
+<div class="app-shell">
+  <mat-toolbar class="app-toolbar">
+    <a class="brand" routerLink="/" aria-label="Page d'accueil de Biblio">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span>Biblio</span>
+    </a>
 
-  <!-- Voici le lien qui déclenche le "module" -->
-  <nav>
-     <a routerLink="/binding-tests" class="bouton1">Aller aux tests de binding</a>
-  </nav>
-  <nav>
-      <a routerLink="/struct" class="bouton2">Aller aux tests de structuration</a>
-  </nav>
+    <nav class="main-nav" aria-label="Navigation principale">
+      <a mat-button routerLink="/home" routerLinkActive="active-link">Accueil</a>
+      <a mat-button routerLink="/catalog" routerLinkActive="active-link">Catalogue</a>
+    </nav>
+  </mat-toolbar>
 
-  <hr>
-
-  <!-- IMPORTANT : LA ZONE D'AFFICHAGE -->
-  <!-- C'est ici qu'Angular va dessiner le composant Profil quand on clique -->
-  <router-outlet></router-outlet>
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

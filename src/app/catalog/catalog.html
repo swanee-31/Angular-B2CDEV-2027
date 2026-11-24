@@ -1,0 +1,45 @@
+<section class="catalog-header">
+  <p class="eyebrow">À VOUS DE CHOISIR</p>
+  <h1>Le catalogue</h1>
+  <p>Parcourez notre sélection et trouvez le livre qui vous accompagnera.</p>
+</section>
+
+<section class="book-grid" aria-label="Liste des livres">
+  @for (book of books; track book.id) {
+    <mat-card class="book-card">
+      <mat-card-header>
+        <div mat-card-avatar class="book-avatar" aria-hidden="true">L</div>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+        <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="book-meta">
+          <span>{{ book.genre }}</span>
+          <span>{{ book.year }}</span>
+        </div>
+        <p>{{ book.description }}</p>
+        @if (book.available) {
+          <span class="availability available">Disponible</span>
+        } @else {
+          <span class="availability borrowed">Emprunté</span>
+        }
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="toggleAvailability(book)"
+        >
+          @if (book.available) {
+            Emprunter
+          } @else {
+            Restituer
+          }
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  } @empty {
+    <p class="empty-state">Aucun livre n’est disponible pour le moment.</p>
+  }
+</section>
