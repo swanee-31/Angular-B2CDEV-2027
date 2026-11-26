@@ -32,7 +32,7 @@ export class CatalogComponent {
       id: 1,
       title: 'Dune',
       author: 'Franck Herbert',
-      year: 2021,
+      year: 1965,
       genre: 'Fiction',
       description: 'Dune is a 1965 epic science fiction novel',
       quantity: 3,

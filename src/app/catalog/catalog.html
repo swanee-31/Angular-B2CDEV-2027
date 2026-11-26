@@ -22,24 +22,24 @@
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="book-avatar" aria-hidden="true">L</div>
-          <mat-card-title>{{ book?.title }}</mat-card-title>
-          <mat-card-subtitle>{{ book?.author }}</mat-card-subtitle>
+          <mat-card-title>{{ book.title }}</mat-card-title>
+          <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div class="book-meta">
-            <span>{{ book?.genre }}</span>
-            <span>{{ book?.year }}</span>
+            <span>{{ book.genre }}</span>
+            <span>{{ book.year }}</span>
           </div>
           <p>Quantité : {{ book?.quantity }}</p>
           <button mat-button (click)="toggleDetails(book)">Afficher les détails</button>
-          @if (book?.showDetails) {
+          @if (book.showDetails) {
             <div>
-              <p>ID interne : {{ book?.id }}</p>
-              <p>Description : {{ book?.description }}</p>
+              <p>ID interne : {{ book.id }}</p>
+              <p>Description : {{ book.description }}</p>
             </div>
-            @if(book?.imageUrl) {
+            @if(book.imageUrl) {
             <div>
-              <img [ngSrc]="book?.imageUrl" alt="Couverture du livre {{ book?.title }}" class="book-cover" priority="high" width="200" height="300">
+              <img [ngSrc]="book.imageUrl" alt="Couverture du livre {{ book?.title }}" class="book-cover" priority="high" width="200" height="300">
             </div>
             }
             @else {
