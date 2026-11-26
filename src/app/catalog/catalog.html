@@ -4,42 +4,55 @@
   <p>Parcourez notre sélection et trouvez le livre qui vous accompagnera.</p>
 </section>
 
+<!-- Sélecteur pour filtrer les livres -->
+<section class="filter-section">
+  <label for="filter">Filtrer :</label>
+
+  <select id="filter" value="all" [(ngModel)]="filterStock">
+    <option value="all">Tout</option>
+    <option value="inStock">En stock</option>
+    <option value="outOfStock">En rupture</option>
+  </select>
+</section>
+
+<!-- Liste des livres -->
 <section class="book-grid" aria-label="Liste des livres">
-  @for (book of books; track book.id) {
-    <mat-card class="book-card">
-      <mat-card-header>
-        <div mat-card-avatar class="book-avatar" aria-hidden="true">L</div>
-        <mat-card-title>{{ book.title }}</mat-card-title>
-        <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="book-meta">
-          <span>{{ book.genre }}</span>
-          <span>{{ book.year }}</span>
-        </div>
-        <p>{{ book.description }}</p>
-        @if (book.available) {
-          <span class="availability available">Disponible</span>
-        } @else {
-          <span class="availability borrowed">Emprunté</span>
-        }
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <button
-          mat-flat-button
-          color="primary"
-          type="button"
-          (click)="toggleAvailability(book)"
-        >
-          @if (book.available) {
-            Emprunter
-          } @else {
-            Restituer
+  @for (book of getFilteredBooks()?.filter(book => book); track book) {
+    <div class="book-card" [class.out-of-stock]="book?.quantity === 0">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar class="book-avatar" aria-hidden="true">L</div>
+          <mat-card-title>{{ book?.title }}</mat-card-title>
+          <mat-card-subtitle>{{ book?.author }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="book-meta">
+            <span>{{ book?.genre }}</span>
+            <span>{{ book?.year }}</span>
+          </div>
+          <p>Quantité : {{ book?.quantity }}</p>
+          <button mat-button (click)="toggleDetails(book)">Afficher les détails</button>
+          @if (book?.showDetails) {
+            <div>
+              <p>ID interne : {{ book?.id }}</p>
+              <p>Description : {{ book?.description }}</p>
+            </div>
+            @if(book?.imageUrl) {
+            <div>
+              <img [ngSrc]="book?.imageUrl" alt="Couverture du livre {{ book?.title }}" class="book-cover" priority="high" width="200" height="300">
+            </div>
+            }
+            @else {
+            <p>Aucune image disponible</p>}
           }
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  } @empty {
-    <p class="empty-state">Aucun livre n’est disponible pour le moment.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="incrementStock(book)">+</button>
+          <button mat-button (click)="decrementStock(book)" [disabled]="book?.quantity === 0">-</button>
+          <button mat-button [disabled]="book?.quantity === 0" 
+          (click)="decrementStock(book)">Acheter</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>  
   }
 </section>

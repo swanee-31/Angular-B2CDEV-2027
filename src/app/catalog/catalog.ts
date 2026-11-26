@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgOptimizedImage } from '@angular/common';
+import { form } from '@angular/forms/signals';
 
 interface Book {
   id: number;
@@ -9,74 +13,77 @@ interface Book {
   year: number;
   genre: string;
   description: string;
-  available: boolean;
+  quantity: number; // Ajout de la propriété quantity
+  showDetails: boolean; // Ajout de la propriété showDetails
+  imageUrl?: string; // Ajout de la propriété imageUrl pour l'image du livre
 }
 
 @Component({
-  imports: [MatButtonModule, MatCardModule],
+  imports: [MatButtonModule, MatCardModule, CommonModule, FormsModule, NgOptimizedImage],
   selector: 'app-catalog',
   styleUrl: './catalog.css',
   templateUrl: './catalog.html',
 })
-export class Catalog {
+
+export class CatalogComponent {
+  // Liste des livres avec les nouvelles propriétés
   books: Book[] = [
     {
       id: 1,
-      title: 'Le Petit Prince',
-      author: 'Antoine de Saint-Exupéry',
-      year: 1943,
-      genre: 'Conte',
-      description: 'Un récit poétique et philosophique sur l’amitié, l’enfance et le regard porté sur le monde.',
-      available: true,
+      title: 'Dune',
+      author: 'Franck Herbert',
+      year: 2021,
+      genre: 'Fiction',
+      description: 'Dune is a 1965 epic science fiction novel',
+      quantity: 3,
+      showDetails: true,
+      imageUrl: 'Dune.jpg' // URL de l'image du livre'
     },
     {
       id: 2,
-      title: 'L’Étranger',
-      author: 'Albert Camus',
-      year: 1942,
-      genre: 'Roman',
-      description: 'Le parcours de Meursault, dont le regard singulier interroge les conventions de la société.',
-      available: true,
+      title: 'Book Title 2',
+      author: 'Author 2',
+      year: 2020,
+      genre: 'Non-Fiction',
+      description: 'Description of Book 2',
+      quantity: 0,
+      showDetails: false,
     },
-    {
-      id: 3,
-      title: 'Les Misérables',
-      author: 'Victor Hugo',
-      year: 1862,
-      genre: 'Classique',
-      description: 'Une grande fresque humaine autour de Jean Valjean et de la quête de justice et de rédemption.',
-      available: false,
-    },
-    {
-      id: 4,
-      title: 'La Peste',
-      author: 'Albert Camus',
-      year: 1947,
-      genre: 'Roman',
-      description: 'Dans une ville frappée par l’épidémie, ses habitants font face à l’isolement et à la solidarité.',
-      available: true,
-    },
-    {
-      id: 5,
-      title: 'Vingt mille lieues sous les mers',
-      author: 'Jules Verne',
-      year: 1870,
-      genre: 'Aventure',
-      description: 'Une expédition extraordinaire à bord du Nautilus, sous la conduite du mystérieux capitaine Nemo.',
-      available: true,
-    },
-    {
-      id: 6,
-      title: 'Notre-Dame de Paris',
-      author: 'Victor Hugo',
-      year: 1831,
-      genre: 'Classique',
-      description: 'Une histoire passionnée et dramatique au cœur du Paris médiéval et de sa célèbre cathédrale.',
-      available: false,
-    },
+    // Ajoutez d'autres livres ici
   ];
 
-  toggleAvailability(book: Book): void {
-    book.available = !book.available;
+  // Propriété pour le filtre
+  filterStock: string = 'all';
+
+  // Méthode pour basculer l'affichage des détails
+  toggleDetails(book: Book): void { 
+    book.showDetails = !book.showDetails;
+  }
+
+  // Méthode pour incrémenter la quantité
+  incrementStock(book: Book): void {
+    book.quantity++;
+  }
+
+  // Méthode pour décrémenter la quantité
+  decrementStock(book: Book): void {
+    if (book.quantity > 0) {
+      book.quantity--;
+    }
+  }
+
+  // Méthode pour filtrer les livres
+  getFilteredBooks(): Book[] {
+    if (this.filterStock === 'inStock') {
+      return this.books.filter(book => book.quantity > 0);
+    } else if (this.filterStock === 'outOfStock') {
+      return this.books.filter(book => book.quantity === 0);
+    }
+    return this.books;
+  }
+
+  // Méthode pour le tracking des livres dans la boucle
+  trackByTitle(index: number, book: Book): string {
+    return book.title;
   }
 }
