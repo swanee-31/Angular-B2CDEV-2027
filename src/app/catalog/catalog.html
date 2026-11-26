@@ -5,15 +5,17 @@
 </section>
 
 <!-- Sélecteur pour filtrer les livres -->
+ <mat-form-field> 
 <section class="filter-section">
-  <label for="filter">Filtrer :</label>
+  <mat-label for="filter">Filtrer :</mat-label>
 
-  <select id="filter" value="all" [(ngModel)]="filterStock">
-    <option value="all">Tout</option>
-    <option value="inStock">En stock</option>
-    <option value="outOfStock">En rupture</option>
-  </select>
+  <mat-select id="filter" value="all" [(ngModel)]="filterStock">
+    <mat-option value="all">Tout</mat-option>
+    <mat-option value="inStock">En stock</mat-option>
+    <mat-option value="outOfStock">En rupture</mat-option>
+  </mat-select>
 </section>
+</mat-form-field>
 
 <!-- Liste des livres -->
 <section class="book-grid" aria-label="Liste des livres">

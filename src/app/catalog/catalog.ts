@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
@@ -19,7 +22,9 @@ interface Book {
 }
 
 @Component({
-  imports: [MatButtonModule, MatCardModule, CommonModule, FormsModule, NgOptimizedImage],
+  imports: [MatButtonModule, MatCardModule, 
+    CommonModule, FormsModule, NgOptimizedImage,
+    MatFormFieldModule, MatSelectModule, MatInputModule],
   selector: 'app-catalog',
   styleUrl: './catalog.css',
   templateUrl: './catalog.html',
@@ -49,6 +54,17 @@ export class CatalogComponent {
       quantity: 0,
       showDetails: false,
     },
+    {
+      id: 3,
+      title: 'Les robots',
+      author: 'Isaac Asimov',
+      year: 2018,
+      genre: 'Fiction',
+      description: 'Les Robots est un recueil de nouvelles d\'Isaac Asimov publié en 1950. Il explore les interactions entre les humains et les robots, mettant en avant les Trois Lois de la Robotique.',
+      quantity: 5,
+      showDetails: false,
+      imageUrl: 'les-robots.jpg' // URL de l'image du livre'
+    }
     // Ajoutez d'autres livres ici
   ];
 
